@@ -12,24 +12,34 @@
 using namespace std;
 
 int readData(int *arr){
-    for (int i = 0; 10 > i; i++){
-        cout << arr[i] << endl;
+    ifstream inFile; //read file
+    inFile.open("data.txt"); //open file
+    if(inFile.fail()){
+        cerr << "Error opening file" << endl; //notify failure to open file
+        exit(1); //exit to avoid crash
     }
+    int x;
+    int textLength = 0;
+    while (!inFile.eof()){
+        inFile >> x;
+        arr[textLength] = x;
+        textLength++;
+    }
+    inFile.close(); //close file
     return *arr;
 }
 
-void bsort(int *arr, int last, int *pointer){
+void bsort(int *arr, int last){
     cout << "Bubble sort " << endl;
     bool change = true;
     int numChange = 0;
     int i = 0;
     int temp1 = 0;
     int temp2 = 0;
-    if (*pointer == -1){
         while (last > i || change){
             if (i < last - 1){
-                temp1 = arr[i];
-                temp2 = arr[i + 1];
+                temp1 = *(arr + i);
+                temp2 = *(arr + i + 1);
                 //cout << temp1 << endl << temp2 << endl << endl;
                 if (temp1 > temp2){
                     arr[i + 1] = temp1;
@@ -46,13 +56,11 @@ void bsort(int *arr, int last, int *pointer){
                 change = false;
             }
         }
-    }
 
-    else if (*pointer == 1){
         while (last > i || change){
             if (i < last - 1){
-                temp1 = arr[i];
-                temp2 = arr[i + 1];
+                temp1 = *(arr + i);
+                temp2 = *(arr + i + 1);
                 //cout << temp1 << endl << temp2 << endl << endl;
                 if (temp1 < temp2){
                     arr[i + 1] = temp1;
@@ -69,34 +77,36 @@ void bsort(int *arr, int last, int *pointer){
                 change = false;
             }
         }
-    }
+}
 
-    else {
-        cout << "Error, contact programmer \n";
-    }
+void bubble_sort(int* arr, int size, int(*op)(int n1, int n2) ){
+    bool change = true;
+    int numChange = 0;
+    int i = 0;
+    int temp1 = 0;
+    int temp2 = 0;
+
+}
+
+bool desend (int temp1, int temp2){
+    return temp1 < temp2;
+}
+bool ascend (int temp1, int temp2){
+    return temp1 > temp2;
 }
 
 void writeToConsole(int * arr, int last){
-    readData(arr);
+    for (int i = 0; 10 > i; i++){
+        cout << arr[i] << endl;
+    }
 }
 
 int main() {
-    ifstream inFile; //read file
-    inFile.open("data.txt"); //open file
-    if(inFile.fail()){
-        cerr << "Error opening file" << endl; //notify failure to open file
-        exit(1); //exit to avoid crash
-    }
-    int x;
-    int textLength = 0;
+
     int arrayP[10];
-    while (!inFile.eof()){
-        inFile >> x;
-        arrayP[textLength] = x;
-        textLength++;
-    }
 
     readData(arrayP);
+    writeToConsole(arrayP, 10);
 
     int select = 0;
     int n = 0;
@@ -114,7 +124,7 @@ int main() {
             cin >> n;
             cout << n << endl;
             if (n == 1 || n == -1){
-                bsort(arrayP, 10, &n);
+                bsort(arrayP, 10);
                 writeToConsole(arrayP, 10);
             }
             else{
@@ -123,6 +133,5 @@ int main() {
         }
     }
 
-    inFile.close(); //close file
     return 0;
 }
