@@ -36,6 +36,10 @@ void bsort(int *arr, int last){
     int i = 0;
     int temp1 = 0;
     int temp2 = 0;
+    int select = 0;
+    cout << "Select 1 for ascend or -1 for descend\n";
+    cin >> select;
+    if (select == 1){
         while (last > i || change){
             if (i < last - 1){
                 temp1 = *(arr + i);
@@ -56,7 +60,9 @@ void bsort(int *arr, int last){
                 change = false;
             }
         }
+    }
 
+    else if (select == -1){
         while (last > i || change){
             if (i < last - 1){
                 temp1 = *(arr + i);
@@ -77,15 +83,29 @@ void bsort(int *arr, int last){
                 change = false;
             }
         }
+    }
+
+    else{
+        cout << "Wrong input, try again\n";
+    }
 }
 
-void bubble_sort(int* arr, int size, int(*op)(int n1, int n2) ){
-    bool change = true;
-    int numChange = 0;
-    int i = 0;
-    int temp1 = 0;
-    int temp2 = 0;
-
+void bubble_sort(int* arr, int size, int(*operation)(int x, int y) ){
+    bool sorted = false;
+    int *ptr = arr;
+    while(!sorted){
+        sorted = true;
+        for (int i = 0; i < size; i++) // Repeat until N - 1 (i.e. 8 in this case)
+        {
+            if (*(ptr + i ) > *(ptr + i + 1)) // make sure you don't access out of bounds
+            {
+                int temp = *(ptr + i);
+                *(ptr + i) = *(ptr + i + 1);
+                *(ptr + i + 1) = temp;
+                sorted = false; // we swapped, so keep sorting
+            }
+        }
+    }
 }
 
 bool desend (int temp1, int temp2){
@@ -112,6 +132,8 @@ int main() {
     int n = 0;
     bool loop = true;
 
+    //bubble_sort(arrayP, 10, 0);
+
     while (loop){
         cout << "Enter 0 to exit, else 1\n";
         cin >> select;
@@ -120,18 +142,9 @@ int main() {
             loop = false;
         }
         else {
-            cout << "Bubble sort, enter 1 ascending order or -1 descending order\n";
-            cin >> n;
-            cout << n << endl;
-            if (n == 1 || n == -1){
-                bsort(arrayP, 10);
-                writeToConsole(arrayP, 10);
-            }
-            else{
-                cout << "Wrong input\n";
-            }
+            bsort(arrayP, 10);
+            writeToConsole(arrayP, 10);
         }
     }
-
     return 0;
 }
