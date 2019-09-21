@@ -39,7 +39,7 @@ void bsort(int *arr, int last){
     int select = 0;
     cout << "Select 1 for ascend or -1 for descend\n";
     cin >> select;
-    if (select == 1){
+    if (select == -1){
         while (last > i || change){
             if (i < last - 1){
                 temp1 = *(arr + i);
@@ -62,7 +62,7 @@ void bsort(int *arr, int last){
         }
     }
 
-    else if (select == -1){
+    else if (select == 1){
         while (last > i || change){
             if (i < last - 1){
                 temp1 = *(arr + i);
@@ -123,7 +123,17 @@ void writeToConsole(int * arr, int last){
 
 int main() {
 
-    int arrayP[10];
+    ifstream inFile; //read file
+    inFile.open("data.txt"); //open file
+    if(inFile.fail()){
+        cerr << "Error opening file" << endl; //notify failure to open file
+        exit(1); //exit to avoid crash
+    }
+
+    int size;
+    inFile >> size;
+
+    int arrayP[size]; //Define the pointer
 
     readData(arrayP);
     writeToConsole(arrayP, 10);
