@@ -12,20 +12,19 @@
 using namespace std;
 
 int readData(int *arr){
-    ifstream inFile; //read file
-    inFile.open("data.txt"); //open file
-    if(inFile.fail()){
-        cerr << "Error opening file" << endl; //notify failure to open file
-        exit(1); //exit to avoid crash
-    }
+    ifstream infile("data.txt");
     int x;
-    int textLength = 0;
-    while (!inFile.eof()){
-        inFile >> x;
-        arr[textLength] = x;
-        textLength++;
+    infile >> x;
+    cout << x << "\n";
+    int size = x;
+
+    for (int i = 0; size > i; i++){
+        infile >> x;
+        arr[i] = x;
+        cout << x << " x " << i << " i " << size << " size " << &arr[i] << " arr" << "\n";
     }
-    inFile.close(); //close file
+
+    infile.close();
     return *arr;
 }
 
@@ -37,6 +36,7 @@ void bsort(int *arr, int last){
     int temp1 = 0;
     int temp2 = 0;
     int select = 0;
+
     cout << "Select 1 for ascend or -1 for descend\n";
     cin >> select;
     if (select == -1){
@@ -123,6 +123,8 @@ void writeToConsole(int * arr, int last){
 
 int main() {
 
+    int *arr[100];
+
     ifstream inFile; //read file
     inFile.open("data.txt"); //open file
     if(inFile.fail()){
@@ -130,13 +132,61 @@ int main() {
         exit(1); //exit to avoid crash
     }
 
-    int size;
-    inFile >> size;
+    readData(*arr);
 
-    int arrayP[size]; //Define the pointer
+    cout << *arr;
+    /*int x;
+    int textLength = 0;
+    while (!inFile.eof()){
+        inFile >> x;
+        arr[textLength] = x;
+        textLength++;
+    }
+    inFile.close(); //close file
+    return *arr;*/
 
-    readData(arrayP);
-    writeToConsole(arrayP, 10);
+    /*int arr[5];
+    int *p = arr;
+    for (int i = 0; i < 5; i++){
+        cin>>*(p+i);
+    }
+
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < (5-i-1); j++){
+            if(*(p+j) > *(p + (j + 1))){
+                int t = *(p + j);
+                *(p + j) = *(p + (j + 1));
+                *(p + (j + 1)) = t;
+            }
+        }
+    }
+
+    cout << "\n Array after sorting are \n";
+    for(int i = 0; i < 5; i++){
+        cout << *(p + i) << " ";
+    }*/
+
+    /*ifstream inFile; //read file
+    inFile.open("data.txt"); //open file
+    if(inFile.fail()){
+        cerr << "Error opening file" << endl; //notify failure to open file
+        exit(1); //exit to avoid crash
+    }
+
+    int *arr[99];
+    cout << readData(*arr);
+    return 0;*/
+
+    //int * p = 0;
+    //inFile >> size;
+
+    //int arrayP[size]; //Define the pointer
+
+    /*int *x = 0;
+    inFile >> *x;
+    cout << *x;*/
+
+    /*writeToConsole(arrayP, 10);
 
     int select = 0;
     int n = 0;
@@ -156,5 +206,5 @@ int main() {
             writeToConsole(arrayP, 10);
         }
     }
-    return 0;
+    return 0;*/
 }
