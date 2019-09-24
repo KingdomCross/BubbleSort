@@ -9,21 +9,17 @@
 #include <iostream>
 
 //http://www.cplusplus.com/doc/tutorial/pointers/
+//https://www.tutorialspoint.com/cplusplus/cpp_pointer_to_an_array.htm
 using namespace std;
 
 int readData(int *arr){
     ifstream infile("data.txt");
-    int x;
-    infile >> x;
-    cout << x << "\n";
-    int size = x;
-
-    for (int i = 0; size > i; i++){
+    infile >> *arr;
+    /*for (int i = 0; size > i; i++){
         infile >> x;
         arr[i] = x;
         cout << x << " x " << i << " i " << size << " size " << &arr[i] << " arr" << "\n";
-    }
-
+    }*/
     infile.close();
     return *arr;
 }
@@ -123,7 +119,10 @@ void writeToConsole(int * arr, int last){
 
 int main() {
 
-    int *arr[100];
+    int number = 0;
+
+    int * arr;
+    arr = &number;
 
     ifstream inFile; //read file
     inFile.open("data.txt"); //open file
@@ -132,9 +131,23 @@ int main() {
         exit(1); //exit to avoid crash
     }
 
-    readData(*arr);
+    cout << readData(arr) << "\n";
+    //cout << *arr << "\n";
+    int last = *arr;
+
+    for (int i = 0; last > i; i++){
+        inFile >> *arr;
+        cout << *arr << " arr " << i << " i " << "\n";
+        arr++;
+    }
+
+    for (int i = 0; last > i; i++){
+        cout << *arr << " arr " << "\n";
+        arr--;
+    }
 
     cout << *arr;
+
     /*int x;
     int textLength = 0;
     while (!inFile.eof()){
