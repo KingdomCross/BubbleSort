@@ -1,6 +1,6 @@
 /**
  * Alex Chheng
- * CECS 282 Lab 3
+ * CECS 282 LAB 3
  */
 #include <iostream>
 #include <fstream>
@@ -27,7 +27,32 @@ int readData(int *arr){
 
 void bsort(int *arr, int last){
     cout << "Bubble sort " << endl;
-    bool change = true;
+
+    for (int i = 0; last > i; i++){
+        cout << *arr << " arr bubble " << i << " i " << "\n";
+        arr++;
+    }
+    arr--;
+
+    for (int i = 0; last > i; i++){
+        cout << *arr << " arr reverse" << "\n";
+        arr--;
+    }
+    arr++;
+
+    cout << *arr << "\n";
+
+    for (int i = 0; last > i; i++){
+        for (int j = 0; j < (last - i - 1); j++){
+            if(*(arr + j) > *(arr + (j + 1))){
+                int temp = *(arr + j);
+                *(arr + j) = *(arr + (j + 1));
+                *(arr + (j + 1)) = temp;
+            }
+        }
+    }
+
+    /*bool change = true;
     int numChange = 0;
     int i = 0;
     int temp1 = 0;
@@ -84,7 +109,19 @@ void bsort(int *arr, int last){
 
     else{
         cout << "Wrong input, try again\n";
+    }*/
+}
+
+void writeToConsole(int * arr, int last){
+
+    cout << "Sorted list\n";
+    for (int i = 0; i < last; i++){
+        cout << *(arr + i) << "\n";
     }
+
+    /*for (int i = 0; 10 > i; i++){
+        cout << arr[i] << endl;
+    }*/
 }
 
 void bubble_sort(int* arr, int size, int(*operation)(int x, int y) ){
@@ -94,7 +131,7 @@ void bubble_sort(int* arr, int size, int(*operation)(int x, int y) ){
         sorted = true;
         for (int i = 0; i < size; i++) // Repeat until N - 1 (i.e. 8 in this case)
         {
-            if (*(ptr + i ) > *(ptr + i + 1)) // make sure you don't access out of bounds
+            if ((*operation)(*(arr + i),*(arr + i + 1))) // make sure you don't access out of bounds
             {
                 int temp = *(ptr + i);
                 *(ptr + i) = *(ptr + i + 1);
@@ -110,12 +147,6 @@ bool desend (int temp1, int temp2){
 }
 bool ascend (int temp1, int temp2){
     return temp1 > temp2;
-}
-
-void writeToConsole(int * arr, int last){
-    for (int i = 0; 10 > i; i++){
-        cout << arr[i] << endl;
-    }
 }
 
 int main() {
@@ -135,19 +166,28 @@ int main() {
     cout << readData(arr) << "\n";
     //cout << *arr << "\n";
     int last = *arr;
+    inFile >> *arr;
 
     for (int i = 0; last > i; i++){
         inFile >> *arr;
         cout << *arr << " arr " << i << " i " << "\n";
         arr++;
     }
+    arr--;
 
     for (int i = 0; last > i; i++){
         cout << *arr << " arr " << "\n";
         arr--;
     }
+    arr++;
 
-    cout << *arr;
+    cout << *arr << "\n";
+
+    bsort(arr, last);
+
+    writeToConsole(arr, last);
+
+    bubble_sort(arr, last, ascend());
 
     /*int x;
     int textLength = 0;
