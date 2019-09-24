@@ -13,14 +13,15 @@
 using namespace std;
 
 int readData(int *arr){
-    ifstream infile("data.txt");
-    infile >> *arr;
+    ifstream inFile("data.txt");
+    inFile >> *arr;
     /*for (int i = 0; size > i; i++){
         infile >> x;
         arr[i] = x;
         cout << x << " x " << i << " i " << size << " size " << &arr[i] << " arr" << "\n";
     }*/
-    infile.close();
+
+    inFile.close(); //close file
     return *arr;
 }
 
